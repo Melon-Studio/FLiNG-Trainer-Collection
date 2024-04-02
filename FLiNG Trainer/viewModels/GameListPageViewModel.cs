@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FLiNG_Trainer.core.sqlitep;
 using FLiNG_Trainer.models;
+using FLiNG_Trainer.views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Wpf.Ui.Controls;
 
 namespace FLiNG_Trainer.viewModels;
 
@@ -20,8 +22,16 @@ public partial class GameListPageViewModel : ObservableObject
     private ObservableCollection<GameListPageModel> _models;
     public ObservableCollection<GameListPageModel> Models
     {
-        get { return _models; }
-        set { SetProperty(ref _models, value); }
+        get => _models;
+        set => SetProperty(ref _models, value);
+    }
+
+    [ObservableProperty]
+    private string _trainerUrl;
+    public string TrainerUrl
+    {
+        get => _trainerUrl;
+        set => SetProperty(ref _trainerUrl, value);
     }
 
     private RelayCommand<string> _openDetailDialogCommand;
@@ -36,7 +46,9 @@ public partial class GameListPageViewModel : ObservableObject
 
     private void OpenDetailDialog(string url)
     {
-        MessageBox.Show(url);
+        TrainerUrl = url;
+        FluentWindow window = new DetailDialog() { Url = url };
+        window.ShowDialog();
     }
 
     private async Task LoadDataAsync()

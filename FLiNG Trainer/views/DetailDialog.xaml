@@ -1,0 +1,76 @@
+﻿<ui:FluentWindow x:Class="FLiNG_Trainer.views.DetailDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:FLiNG_Trainer.views"
+        mc:Ignorable="d"
+        Title="DetailDialog"
+        WindowStartupLocation="CenterScreen" 
+        WindowBackdropType="Mica"
+        WindowCornerPreference="Round"  ResizeMode="CanMinimize"
+        ExtendsContentIntoTitleBar="True" Height="450" Width="800" Loaded="FluentWindow_Loaded">
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Column="0"
+            HorizontalAlignment="Right" >
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+                <Border 
+                    Grid.Column="0"
+                    Height="60"
+                    Background="#202020"
+                    x:Name="DragArea" 
+                    PreviewMouseLeftButtonDown="DragArea_PreviewMouseLeftButtonDown" />
+                <Border
+                    Grid.Column="1" 
+                    Height="40"
+                    x:Name="MinButton"
+                    VerticalAlignment="Top"
+                    MouseDown="MinButton_MouseDown" 
+                    MouseEnter="MinButton_MouseEnter" 
+                    MouseLeave="MinButton_MouseLeave" 
+                    MouseLeftButtonDown="MinButton_MouseLeftButtonDown" 
+                    MouseLeftButtonUp="MinButton_MouseLeftButtonUp" 
+                    Background="#FF202020" Panel.ZIndex="10">
+                    <TextBlock 
+                        Style="{StaticResource MinIcon}"
+                        FontSize="14"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center" />
+                        </Border>
+                <Border
+                    Grid.Column="2" 
+                    Height="40"
+                    x:Name="CloseButton"
+                    VerticalAlignment="Top"
+                    MouseDown="CloseButton_MouseDown" 
+                    MouseEnter="CloseButton_MouseEnter" 
+                    MouseLeave="CloseButton_MouseLeave" 
+                    MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" 
+                    MouseLeftButtonUp="CloseButton_MouseLeftButtonUp" 
+                    Background="#FF202020" Panel.ZIndex="10" >
+                    <TextBlock 
+                        Style="{StaticResource CloseIcon}"
+                        FontSize="12"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center" 
+                        />
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</ui:FluentWindow>

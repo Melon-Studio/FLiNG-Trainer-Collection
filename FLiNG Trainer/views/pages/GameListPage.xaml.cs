@@ -50,8 +50,4 @@ public partial class GameListPage : Page
         flag = true;
         MessageBox.Show("滚动到底部了，加载更多数据");
     }
-
-    private void border_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-    }
 }

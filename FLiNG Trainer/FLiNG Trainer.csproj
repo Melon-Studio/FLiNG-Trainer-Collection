@@ -121,14 +121,28 @@
     <Compile Include="core\sqlite\SQLiteDataAccess.cs" />
     <Compile Include="models\GameListPageModel.cs" />
     <Compile Include="models\MyListPageModel.cs" />
+    <Compile Include="style\EmptyButtonControl.xaml.cs">
+      <DependentUpon>EmptyButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="viewModels\GameListPageViewModel.cs" />
     <Compile Include="viewModels\MyListPageViewModel.cs" />
+    <Compile Include="views\DetailDialog.xaml.cs">
+      <DependentUpon>DetailDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\pages\GameListPage.xaml.cs">
       <DependentUpon>GameListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="views\pages\MyListPage.xaml.cs">
       <DependentUpon>MyListPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="style\EmptyButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\DetailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="views\pages\GameListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,9 +210,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\images\skeleton.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="views\pages\skeleton.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.0\CommunityToolkit.Mvvm.targets" Condition="Exists('..\packages\CommunityToolkit.Mvvm.8.2.2\build\netstandard2.0\CommunityToolkit.Mvvm.targets')" />

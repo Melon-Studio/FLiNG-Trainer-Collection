@@ -1,0 +1,252 @@
+﻿<ui:FluentWindow x:Class="FLiNG_Trainer.views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"  
+        xmlns:viewModel="clr-namespace:FLiNG_Trainer.viewModels"
+        xmlns:model="clr-namespace:FLiNG_Trainer.models"
+        xmlns:local="clr-namespace:FLiNG_Trainer"
+        Title="FLiNG Trainer" Height="675" Width="1200" ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen" 
+        WindowBackdropType="Mica"
+        WindowCornerPreference="Round"
+        ExtendsContentIntoTitleBar="True" Loaded="FluentWindow_Loaded">
+     
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="8*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧菜单栏 -->
+        <Grid Grid.Column="0" Background="#252525">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <ui:TextBlock 
+                Grid.Row="0"
+                Text="FLiNG Trainer" 
+                FontSize="20" 
+                FontWeight="Bold"
+                Width="auto" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center" />
+
+            <Border 
+                x:Name="GameListButton"
+                Grid.Row="2"
+                Width="200"
+                Height="40"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                CornerRadius="5,5,5,5"
+                MouseEnter="GameListButton_MouseEnter" 
+                MouseLeave="GameListButton_MouseLeave" 
+                MouseLeftButtonDown="GameListButton_MouseLeftButtonDown"
+                Background="#FF252525" MouseLeftButtonUp="GameListButton_MouseLeftButtonUp"
+                >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding UpdatePageNameCommand}" CommandParameter="修改器列表" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="7*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0" 
+                        Style="{StaticResource ListIcon}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                    <ui:TextBlock 
+                        Grid.Column="1" 
+                        Text="修改器列表" 
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                </Grid>
+            </Border>
+        <Border 
+                x:Name="MyListButton"
+                Grid.Row="3"
+                Width="200"
+                Height="40"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                CornerRadius="5,5,5,5" 
+                MouseEnter="MyListButton_MouseEnter"
+                MouseLeave="MyListButton_MouseLeave"
+                MouseLeftButtonDown="MyListButton_MouseLeftButtonDown"
+                Background="#FF252525" MouseLeftButtonUp="MyListButton_MouseLeftButtonUp">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding UpdatePageNameCommand}" CommandParameter="我的修改器" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="7*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0" 
+                        Style="{StaticResource MyIcon}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                    <ui:TextBlock 
+                        Grid.Column="1" 
+                        Text="我的修改器" 
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                </Grid>
+            </Border>
+            <Border 
+                x:Name="SettingButton"
+                Grid.Row="5"
+                Width="200"
+                Height="40"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                CornerRadius="5,5,5,5"
+                MouseEnter="SettingButton_MouseEnter" 
+                MouseLeave="SettingButton_MouseLeave" 
+                MouseLeftButtonDown="SettingButton_MouseLeftButtonDown" 
+                MouseDown="SettingButton_MouseDown"
+                Background="#FF252525" MouseLeftButtonUp="SettingButton_MouseLeftButtonUp">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="6*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock 
+                        Grid.Column="0" 
+                        Style="{StaticResource SettingIcon}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                        <ui:TextBlock 
+                        Grid.Column="1" 
+                        Text="设置" 
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="5"/>
+                    </Grid>
+                </Border>
+        </Grid>
+        
+        <!-- 右侧菜单栏 -->
+        <Grid Grid.Column="1" Background="#202020">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Cursor="">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+                <ui:TextBox 
+                    Grid.Column="0" 
+                    Icon="Serach12" 
+                    PlaceholderText="输入英文游戏名查询" 
+                    Width="400"
+                    Height="35" HorizontalAlignment="Left" Margin="15,0,0,0" MinWidth="400"
+                     />
+
+                <Border
+                    Grid.Column="1"
+                    HorizontalAlignment="Right" >
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="360"/>
+                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="60" />
+                        </Grid.ColumnDefinitions>
+                        <Border 
+                            Grid.Column="0"
+                            Width="360"
+                            Height="60"
+                            Background="#202020"
+                            x:Name="DragArea" 
+                            PreviewMouseLeftButtonDown="DragArea_PreviewMouseLeftButtonDown" />
+                        <Border
+                            Grid.Column="1" 
+                            Height="40"
+                            x:Name="MinButton"
+                            VerticalAlignment="Top"
+                            MouseDown="MinButton_MouseDown" 
+                            MouseEnter="MinButton_MouseEnter" 
+                            MouseLeave="MinButton_MouseLeave" 
+                            MouseLeftButtonDown="MinButton_MouseLeftButtonDown" 
+                            MouseLeftButtonUp="MinButton_MouseLeftButtonUp" 
+                            Background="#FF202020" Panel.ZIndex="10">
+                            <TextBlock 
+                                Style="{StaticResource MinIcon}"
+                                FontSize="14"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
+                        </Border>
+                        <Border
+                            Grid.Column="2" 
+                            Height="40"
+                            x:Name="CloseButton"
+                            VerticalAlignment="Top"
+                            MouseDown="CloseButton_MouseDown" 
+                            MouseEnter="CloseButton_MouseEnter" 
+                            MouseLeave="CloseButton_MouseLeave" 
+                            MouseLeftButtonDown="CloseButton_MouseLeftButtonDown" 
+                            MouseLeftButtonUp="CloseButton_MouseLeftButtonUp" 
+                            Background="#FF202020" Panel.ZIndex="10" >
+                            <TextBlock 
+                                Style="{StaticResource CloseIcon}"
+                                FontSize="12"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" 
+                                />
+                        </Border>
+                        
+                        
+                    </Grid>
+                    
+                </Border>
+            </Grid>
+            <ui:TextBlock 
+                Grid.Row="2" 
+                Text="{Binding PageName}" 
+                FontSize="25"
+                FontWeight="Bold"
+                Margin="15, 0, 0, 0"
+                VerticalAlignment="Center"/>
+
+            <Frame x:Name="MainWindowFrame" Grid.Row="4" HorizontalAlignment="Center" />
+        </Grid>
+    </Grid>
+</ui:FluentWindow>
+ 

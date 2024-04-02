@@ -1,0 +1,8 @@
+/.vs
+/.git
+/Crawler/.idea
+/Crawler/__pycache__
+/Crawler/data/*
+/Crawler/token/*
+/Crawler/venv/*
+/packages/

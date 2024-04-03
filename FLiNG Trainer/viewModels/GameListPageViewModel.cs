@@ -9,21 +9,38 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Wpf.Ui.Controls;
 
 namespace FLiNG_Trainer.viewModels;
 
 public partial class GameListPageViewModel : ObservableObject
 {
+    private CancellationTokenSource debounceTokenSource = new CancellationTokenSource();
+
     [ObservableProperty]
     private ObservableCollection<GameListPageModel> _models;
     public ObservableCollection<GameListPageModel> Models
     {
         get => _models;
-        set => SetProperty(ref _models, value);
+        set
+        {
+            SetProperty(ref _models, value);
+            OnPropertyChanged(nameof(Models));
+        }
+    }
+
+    [ObservableProperty]
+    private int _pageIndex = 0;
+    public int PageIndex
+    {
+        get => _pageIndex;
+        set => SetProperty(ref _pageIndex, value);
     }
 
     [ObservableProperty]
@@ -34,6 +51,9 @@ public partial class GameListPageViewModel : ObservableObject
         set => SetProperty(ref _trainerUrl, value);
     }
 
+    private RelayCommand<DynamicScrollViewer> _scrollToBottomCommand;
+    public ICommand ScrollToBottomCommand => _scrollToBottomCommand ??= new RelayCommand<DynamicScrollViewer>(OnScrollToBottom);
+
     private RelayCommand<string> _openDetailDialogCommand;
     public ICommand OpenDetailDialogCommand => _openDetailDialogCommand ??= new RelayCommand<string>(OpenDetailDialog);
 
@@ -41,6 +61,7 @@ public partial class GameListPageViewModel : ObservableObject
     {
         Models = new ObservableCollection<GameListPageModel>();
         _openDetailDialogCommand = new RelayCommand<string>(OpenDetailDialog);
+        _scrollToBottomCommand = new RelayCommand<DynamicScrollViewer>(OnScrollToBottom);
         _ = LoadDataAsync();
     }
 
@@ -54,13 +75,11 @@ public partial class GameListPageViewModel : ObservableObject
     private async Task LoadDataAsync()
     {
         await Task.Run(() => {
-            ObservableCollection<GameListPageModel> dataModel = new ObservableCollection<GameListPageModel>();
             SQLiteDataAccess dataAccess = new SQLiteDataAccess();
             dataAccess.OpenConnection();
             string query = "SELECT * FROM game_list";
-            int pageIndex = 0;
             int pageSize = 20;
-            DataTable table = dataAccess.GetPagedData(query, pageIndex, pageSize);
+            DataTable table = dataAccess.GetPagedData(query, PageIndex, pageSize);
             foreach (DataRow row in table.Rows)
             {
                 GameListPageModel data = new GameListPageModel();
@@ -68,10 +87,41 @@ public partial class GameListPageViewModel : ObservableObject
                 data.EnName = row["en_name"].ToString();
                 data.TrainerUrl = row["trainer_url"].ToString();
                 data.GameCoverId = row["game_cover_id"].ToString();
-                dataModel.Add(data);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    Models.Add(data);
+                });
+                
             }
-            Models = dataModel;
             dataAccess.CloseConnection();
         });
+    }
+
+
+
+    private bool flag = false;
+    private async void OnScrollToBottom(DynamicScrollViewer scrollViewer)
+    {
+        try
+        {
+            debounceTokenSource.Cancel(); 
+            debounceTokenSource = new CancellationTokenSource(); 
+
+            await Task.Delay(1000, debounceTokenSource.Token); 
+            if (scrollViewer.VerticalOffset + scrollViewer.ViewportHeight >= scrollViewer.ExtentHeight)
+            {
+                flag = true;
+                if (flag)
+                {
+                    PageIndex += 1;
+                    await LoadDataAsync();
+                }
+            }
+            else
+            {
+                flag = false;
+            }
+        }
+        catch (TaskCanceledException) { }
     }
 }

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using FLiNG_Trainer.models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
@@ -23,6 +24,14 @@ public partial class MainWindowViewModel : ObservableObject
 
     private RelayCommand<string> _updatePageNameCommand;
     public ICommand UpdatePageNameCommand => _updatePageNameCommand ??= new RelayCommand<string>(UpdatePageName);
+
+    private RelayCommand _testExcption;
+    public ICommand TestExcption => _testExcption ??= new RelayCommand(UpdatePageName);
+
+    private void UpdatePageName()
+    {
+        throw new NotImplementedException();
+    }
 
     public MainWindowViewModel()
     {

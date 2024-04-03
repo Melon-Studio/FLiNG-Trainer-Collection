@@ -10,7 +10,7 @@
       xmlns:local="clr-namespace:FLiNG_Trainer.views.pages"
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="960"
-      Title="MyListPage">
+      Title="MyListPage" FontFamily="{StaticResource SourceHanSans}">
     <Page.DataContext>
         <viewModel:MyListPageViewModel />
     </Page.DataContext>

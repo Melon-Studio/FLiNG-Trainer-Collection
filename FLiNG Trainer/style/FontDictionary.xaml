@@ -4,6 +4,10 @@
         x:Key="SegoeFluentIcons">
         pack://application:,,,/FLiNG Trainer;component/resources/fonts/SegoeFluentIcons.ttf#Segoe Fluent Icons
     </FontFamily>
+    <FontFamily
+        x:Key="SourceHanSans">
+        pack://application:,,,/FLiNG Trainer;component/resources/fonts/SourceHanSans.otf#Source Han Sans SC
+    </FontFamily>
 
     <Style TargetType="TextBlock" x:Key="SettingIcon">
         <Setter Property="FontFamily" Value="{StaticResource SegoeFluentIcons}"/>

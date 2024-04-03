@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen" 
         WindowBackdropType="Mica"
         WindowCornerPreference="Round"  ResizeMode="CanMinimize"
-        ExtendsContentIntoTitleBar="True" Height="450" Width="800" Loaded="FluentWindow_Loaded">
+        ExtendsContentIntoTitleBar="True" Height="450" Width="800" Loaded="FluentWindow_Loaded" FontFamily="{StaticResource SourceHanSans}">
     <Grid Background="#202020">
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />

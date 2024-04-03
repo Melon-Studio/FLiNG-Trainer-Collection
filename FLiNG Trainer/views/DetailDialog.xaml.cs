@@ -87,8 +87,6 @@ namespace FLiNG_Trainer.views
 
         private void FluentWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
-            System.Windows.MessageBox.Show(Url);
         }
     }
 

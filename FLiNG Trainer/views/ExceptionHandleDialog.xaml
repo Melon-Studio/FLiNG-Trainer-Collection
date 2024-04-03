@@ -1,0 +1,28 @@
+﻿<ui:FluentWindow x:Class="FLiNG_Trainer.views.ExceptionHandleDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FLiNG_Trainer.views"
+        mc:Ignorable="d"
+        Title="Ops~ 遇到了严重的问题" Height="200" Width="500" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Loaded="FluentWindow_Loaded" Topmost="True" FontFamily="{StaticResource SourceHanSans}"
+        >
+    <Grid Background="#202020">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="4*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Padding="20" Text="FiLNG Trainer 在运行时遇到了严重的错误，请将错误发布在 FiLNG Trainer 的 GitHub Issues 中，开发者将会提供解决方案。&#13;错误详情：" Foreground="#ffffff" TextWrapping="Wrap" x:Name="messageText" />
+        <Border Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+                <ui:Button Content="复制错误" Margin="0,0,10,0" x:Name="copyExciptionMessageButton" Click="copyExciptionMessageButton_Click" />
+                <ui:Button Content="访问 Issues" Margin="0,0,10,0" x:Name="openFiLNGTrainerGithubButton" Click="openFiLNGTrainerGithubButton_Click" />
+                <ui:Button Content="关闭" x:Name="closeThisDialogButton" Click="closeThisDialogButton_Click" />
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</ui:FluentWindow>

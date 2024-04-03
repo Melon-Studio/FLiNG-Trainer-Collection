@@ -7,9 +7,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FLiNG_Trainer.views.pages"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"  
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="960"
-      Title="GameListPage">
+      Title="GameListPage" FontFamily="{StaticResource SourceHanSans}">
   <Page.DataContext>
     <viewModel:GameListPageViewModel />
   </Page.DataContext>
@@ -23,7 +24,12 @@
             MinHeight="520"
             Grid.Row="0"
             Margin="15, 0, 5, 0"
-            HorizontalAlignment="Center" ScrollChanged="DynamicScrollViewer_ScrollChanged">
+            HorizontalAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="ScrollChanged">
+                    <i:InvokeCommandAction Command="{Binding ScrollToBottomCommand}" CommandParameter="{Binding ElementName=scrollViewer}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ItemsControl ItemsSource="{Binding Models}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -64,7 +70,7 @@
                                                     BeginTime="0:0:0"
                                                     FillBehavior="Stop"/>
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MovingStop"  
-                                       Storyboard.TargetProperty="(GradientStop.Offset)">
+                                                    Storyboard.TargetProperty="(GradientStop.Offset)">
                                                 <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
                                             </DoubleAnimationUsingKeyFrames>
@@ -80,9 +86,9 @@
                             </Border.Triggers>
 
                             <Border 
-                        Height="50" 
-                        VerticalAlignment="Bottom"
-                        CornerRadius="0,0,7,7">
+                                Height="50" 
+                                VerticalAlignment="Bottom"
+                                CornerRadius="0,0,7,7" ToolTip="{Binding EnName}">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#00000000"/>
@@ -90,11 +96,12 @@
                                     </LinearGradientBrush>
                                 </Border.Background>
                                 <ui:TextBlock 
-                            Text="{Binding EnName}" 
-                            FontSize="13" 
-                            Foreground="White"
-                            TextWrapping="Wrap"
-                            Padding="5" >
+                                    Text="{Binding EnName}" 
+                                    FontSize="13" 
+                                    Foreground="White"
+                                    TextWrapping="Wrap"
+                                    TextTrimming="WordEllipsis"
+                                    Padding="5" >
                                 </ui:TextBlock>
                             </Border>
                         </Border>

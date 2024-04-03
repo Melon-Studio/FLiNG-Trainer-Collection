@@ -129,6 +129,9 @@
     <Compile Include="views\DetailDialog.xaml.cs">
       <DependentUpon>DetailDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="views\ExceptionHandleDialog.xaml.cs">
+      <DependentUpon>ExceptionHandleDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="views\pages\GameListPage.xaml.cs">
       <DependentUpon>GameListPage.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="views\DetailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="views\ExceptionHandleDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,6 +203,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="resources\fonts\SourceHanSans.otf" />
     <Resource Include="resources\fonts\SegoeFluentIcons.ttf" />
   </ItemGroup>
   <ItemGroup>

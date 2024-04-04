@@ -11,9 +11,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="515" d:DesignWidth="960"
       Title="GameListPage" FontFamily="{StaticResource SourceHanSans}">
-  <Page.DataContext>
-    <viewModel:GameListPageViewModel />
-  </Page.DataContext>
+    <Page.DataContext>
+        <viewModel:GameListPageViewModel />
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -33,22 +33,11 @@
             <ItemsControl ItemsSource="{Binding Models}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <DataTemplate.Resources>
-                            <Storyboard x:Key="Storyboard">
-                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[2].(GradientStop.Offset)">
-                                    <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                    <EasingDoubleKeyFrame KeyTime="00:00:01" Value="1">
-                                        <EasingDoubleKeyFrame.EasingFunction>
-                                            <BackEase EasingMode="EaseIn"/>
-                                        </EasingDoubleKeyFrame.EasingFunction>
-                                    </EasingDoubleKeyFrame>
-                                </DoubleAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </DataTemplate.Resources>
                         <Border x:Name="border" Width="160" 
-                        Height="225" 
-                        Margin="0, 0, 25, 25" 
-                        CornerRadius="8">
+                            Height="225" 
+                            Margin="0, 0, 25, 25" 
+                            CornerRadius="8"
+                            Panel.ZIndex="1">
                             <Border.InputBindings>
                                 <MouseBinding Command="{Binding Path=DataContext.OpenDetailDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding TrainerUrl}" MouseAction="LeftClick" />
                             </Border.InputBindings>
@@ -85,25 +74,39 @@
                                 </EventTrigger>
                             </Border.Triggers>
 
-                            <Border 
-                                Height="50" 
-                                VerticalAlignment="Bottom"
-                                CornerRadius="0,0,7,7" ToolTip="{Binding EnName}">
-                                <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#00000000"/>
-                                        <GradientStop Color="#E5000000" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <ui:TextBlock 
-                                    Text="{Binding EnName}" 
-                                    FontSize="13" 
-                                    Foreground="White"
-                                    TextWrapping="Wrap"
-                                    TextTrimming="WordEllipsis"
-                                    Padding="5" >
-                                </ui:TextBlock>
-                            </Border>
+                            <Canvas>
+                                <Canvas.Clip>
+                                    <RectangleGeometry Rect="0, 0, 160, 225" RadiusX="8" RadiusY="8"/>
+                                </Canvas.Clip>
+                                <Border
+                                    Height="225"
+                                    Width="160">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding GameCoverUrl}" Stretch="UniformToFill" />
+                                    </Border.Background>
+                                </Border>
+                                <Border 
+                                    Height="50" 
+                                    Width="160"
+                                    Canvas.Bottom="0"
+                                    VerticalAlignment="Bottom"
+                                    CornerRadius="0,0,7,7" ToolTip="{Binding EnName}">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#00000000"/>
+                                            <GradientStop Color="#E5000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <ui:TextBlock 
+                                        Text="{Binding EnName}" 
+                                        FontSize="13" 
+                                        Foreground="White"
+                                        TextWrapping="Wrap"
+                                        TextTrimming="WordEllipsis"
+                                        Padding="5" >
+                                    </ui:TextBlock>
+                                </Border>
+                            </Canvas>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

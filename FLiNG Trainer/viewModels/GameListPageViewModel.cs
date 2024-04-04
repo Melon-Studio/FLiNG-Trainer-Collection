@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using FLiNG_Trainer.core.http;
 using FLiNG_Trainer.core.sqlitep;
 using FLiNG_Trainer.models;
 using FLiNG_Trainer.views;
@@ -15,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Wpf.Ui.Controls;
 
 namespace FLiNG_Trainer.viewModels;
@@ -51,6 +53,23 @@ public partial class GameListPageViewModel : ObservableObject
         set => SetProperty(ref _trainerUrl, value);
     }
 
+    [ObservableProperty]
+    private string _gameCoverUrl;
+    public string GameCoverUrl
+    {
+        get => _gameCoverUrl;
+        set => SetProperty(ref _gameCoverUrl, value);
+    }
+
+    [ObservableProperty]
+    private bool _isImageLoaded;
+    public bool IsImageLoaded
+    {
+        get => _isImageLoaded;
+        set => SetProperty(ref _isImageLoaded, value);
+    }
+
+
     private RelayCommand<DynamicScrollViewer> _scrollToBottomCommand;
     public ICommand ScrollToBottomCommand => _scrollToBottomCommand ??= new RelayCommand<DynamicScrollViewer>(OnScrollToBottom);
 
@@ -74,12 +93,13 @@ public partial class GameListPageViewModel : ObservableObject
 
     private async Task LoadDataAsync()
     {
-        await Task.Run(() => {
+        DataTable table;
+        await Task.Run(async () => {
             SQLiteDataAccess dataAccess = new SQLiteDataAccess();
             dataAccess.OpenConnection();
             string query = "SELECT * FROM game_list";
             int pageSize = 20;
-            DataTable table = dataAccess.GetPagedData(query, PageIndex, pageSize);
+            table = dataAccess.GetPagedData(query, PageIndex, pageSize);
             foreach (DataRow row in table.Rows)
             {
                 GameListPageModel data = new GameListPageModel();
@@ -87,6 +107,7 @@ public partial class GameListPageViewModel : ObservableObject
                 data.EnName = row["en_name"].ToString();
                 data.TrainerUrl = row["trainer_url"].ToString();
                 data.GameCoverId = row["game_cover_id"].ToString();
+                data.GameCoverUrl = row["game_cover_url"].ToString();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Models.Add(data);
@@ -96,8 +117,6 @@ public partial class GameListPageViewModel : ObservableObject
             dataAccess.CloseConnection();
         });
     }
-
-
 
     private bool flag = false;
     private async void OnScrollToBottom(DynamicScrollViewer scrollViewer)

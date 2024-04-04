@@ -3,6 +3,7 @@
 /Crawler/.idea
 /Crawler/__pycache__
 /Crawler/data/*
+/Crawler/html/*
 /Crawler/token/*
 /Crawler/venv/*
 /packages/

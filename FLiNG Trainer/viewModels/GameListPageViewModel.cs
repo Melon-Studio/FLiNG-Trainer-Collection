@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FLiNG_Trainer.core.http;
 using FLiNG_Trainer.core.sqlitep;
 using FLiNG_Trainer.models;
 using FLiNG_Trainer.views;

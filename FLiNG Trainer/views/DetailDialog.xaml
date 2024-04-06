@@ -35,23 +35,7 @@
                     Background="#202020"
                     x:Name="DragArea" 
                     PreviewMouseLeftButtonDown="DragArea_PreviewMouseLeftButtonDown" />
-                <Border
-                    Grid.Column="1" 
-                    Height="40"
-                    x:Name="MinButton"
-                    VerticalAlignment="Top"
-                    MouseDown="MinButton_MouseDown" 
-                    MouseEnter="MinButton_MouseEnter" 
-                    MouseLeave="MinButton_MouseLeave" 
-                    MouseLeftButtonDown="MinButton_MouseLeftButtonDown" 
-                    MouseLeftButtonUp="MinButton_MouseLeftButtonUp" 
-                    Background="#FF202020" Panel.ZIndex="10">
-                    <TextBlock 
-                        Style="{StaticResource MinIcon}"
-                        FontSize="14"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center" />
-                        </Border>
+                
                 <Border
                     Grid.Column="2" 
                     Height="40"
@@ -72,5 +56,19 @@
                 </Border>
             </Grid>
         </Border>
+
+        <Grid Grid.Row="2">
+            <ui:DynamicScrollViewer>
+                <ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#232323"
+                                    Height="50"
+                                    Width="200"></Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ui:DynamicScrollViewer>
+        </Grid>
     </Grid>
 </ui:FluentWindow>

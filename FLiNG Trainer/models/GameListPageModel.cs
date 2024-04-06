@@ -4,6 +4,7 @@ namespace FLiNG_Trainer.models;
 
 public class GameListPageModel
 {
+    #pragma warning disable CS0169
     private string id;
     private string enName;
     private string trainerUrl;

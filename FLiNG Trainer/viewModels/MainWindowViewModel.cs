@@ -14,7 +14,6 @@ namespace FLiNG_Trainer.viewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
-    [ObservableProperty]
     private string _pageName;
     public string PageName
     {
@@ -35,7 +34,7 @@ public partial class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel()
     {
-        _updatePageNameCommand = new RelayCommand<string>(UpdatePageName);
+
     }
     private void UpdatePageName(string name)
     {

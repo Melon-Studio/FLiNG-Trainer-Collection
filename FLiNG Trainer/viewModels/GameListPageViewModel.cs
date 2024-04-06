@@ -24,7 +24,7 @@ public partial class GameListPageViewModel : ObservableObject
 {
     private CancellationTokenSource debounceTokenSource = new CancellationTokenSource();
 
-    [ObservableProperty]
+    
     private ObservableCollection<GameListPageModel> _models;
     public ObservableCollection<GameListPageModel> Models
     {
@@ -36,7 +36,7 @@ public partial class GameListPageViewModel : ObservableObject
         }
     }
 
-    [ObservableProperty]
+    
     private int _pageIndex = 0;
     public int PageIndex
     {
@@ -44,30 +44,13 @@ public partial class GameListPageViewModel : ObservableObject
         set => SetProperty(ref _pageIndex, value);
     }
 
-    [ObservableProperty]
+    
     private string _trainerUrl;
     public string TrainerUrl
     {
         get => _trainerUrl;
         set => SetProperty(ref _trainerUrl, value);
     }
-
-    [ObservableProperty]
-    private string _gameCoverUrl;
-    public string GameCoverUrl
-    {
-        get => _gameCoverUrl;
-        set => SetProperty(ref _gameCoverUrl, value);
-    }
-
-    [ObservableProperty]
-    private bool _isImageLoaded;
-    public bool IsImageLoaded
-    {
-        get => _isImageLoaded;
-        set => SetProperty(ref _isImageLoaded, value);
-    }
-
 
     private RelayCommand<DynamicScrollViewer> _scrollToBottomCommand;
     public ICommand ScrollToBottomCommand => _scrollToBottomCommand ??= new RelayCommand<DynamicScrollViewer>(OnScrollToBottom);
@@ -78,43 +61,44 @@ public partial class GameListPageViewModel : ObservableObject
     public GameListPageViewModel()
     {
         Models = new ObservableCollection<GameListPageModel>();
-        _openDetailDialogCommand = new RelayCommand<string>(OpenDetailDialog);
-        _scrollToBottomCommand = new RelayCommand<DynamicScrollViewer>(OnScrollToBottom);
         _ = LoadDataAsync();
     }
 
     private void OpenDetailDialog(string url)
     {
         TrainerUrl = url;
-        FluentWindow window = new DetailDialog() { Url = url };
+        FluentWindow window = new DetailDialog() { _url = url };
         window.ShowDialog();
     }
 
     private async Task LoadDataAsync()
     {
         DataTable table;
-        await Task.Run(async () => {
-            SQLiteDataAccess dataAccess = new SQLiteDataAccess();
-            dataAccess.OpenConnection();
-            string query = "SELECT * FROM game_list";
-            int pageSize = 20;
-            table = dataAccess.GetPagedData(query, PageIndex, pageSize);
-            foreach (DataRow row in table.Rows)
-            {
-                GameListPageModel data = new GameListPageModel();
-                data.Id = row["id"].ToString();
-                data.EnName = row["en_name"].ToString();
-                data.TrainerUrl = row["trainer_url"].ToString();
-                data.GameCoverId = row["game_cover_id"].ToString();
-                data.GameCoverUrl = row["game_cover_url"].ToString();
-                Application.Current.Dispatcher.Invoke(() =>
+        try
+        {
+            await Task.Run(() => {
+                SQLiteDataAccess dataAccess = new SQLiteDataAccess();
+                dataAccess.OpenConnection();
+                string query = "SELECT * FROM game_list";
+                int pageSize = 20;
+                table = dataAccess.GetPagedData(query, PageIndex, pageSize);
+                foreach (DataRow row in table.Rows)
                 {
-                    Models.Add(data);
-                });
-                
-            }
-            dataAccess.CloseConnection();
-        });
+                    GameListPageModel data = new GameListPageModel();
+                    data.Id = row["id"].ToString();
+                    data.EnName = row["en_name"].ToString();
+                    data.TrainerUrl = row["trainer_url"].ToString();
+                    data.GameCoverId = row["game_cover_id"].ToString();
+                    data.GameCoverUrl = row["game_cover_url"].ToString();
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        Models.Add(data);
+                    });
+
+                }
+                dataAccess.CloseConnection();
+            });
+        }catch (TaskCanceledException) { }
     }
 
     private bool flag = false;

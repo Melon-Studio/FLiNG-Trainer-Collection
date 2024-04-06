@@ -256,6 +256,23 @@
                 VerticalAlignment="Center"/>
 
             <Frame x:Name="MainWindowFrame" Grid.Row="4" HorizontalAlignment="Center" />
+            <Canvas Grid.Row="4">
+                <Border BorderThickness="1" 
+                        Background="#252525" 
+                        CornerRadius="100" 
+                        Width="80" 
+                        Height="80"
+                        Canvas.Bottom="20"
+                        Canvas.Right="30"
+                        x:Name="DownloadButton">
+                    <ui:SymbolIcon 
+                        Symbol="ArrowDownload16" 
+                        Foreground="White" 
+                        Width="80" 
+                        Height="80" 
+                        FontSize="35"/>
+                </Border>
+            </Canvas>
         </Grid>
     </Grid>
 </ui:FluentWindow>

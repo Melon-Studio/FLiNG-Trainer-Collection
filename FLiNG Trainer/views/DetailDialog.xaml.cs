@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FLiNG_Trainer.core;
+using FLiNG_Trainer.viewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,41 +19,13 @@ namespace FLiNG_Trainer.views
 {
     public partial class DetailDialog : FluentWindow
     {
-        public string Url { get; set; }
+        public string _url { get; set; }
 
         public DetailDialog()
         {
             InitializeComponent();
+            this.DataContext = new DetailDialogViewModel(_url);
         }
-
-        // MinButton 交互事件
-
-        private void MinButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MinButton.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
-        }
-
-        private void MinButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            MinButton.Background = new SolidColorBrush(Color.FromRgb(35, 35, 35));
-        }
-
-        private void MinButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            MinButton.Background = new SolidColorBrush(Color.FromRgb(32, 32, 32));
-        }
-
-        private void MinButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MinButton.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
-        }
-
-        private void MinButton_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            MinButton.Background = new SolidColorBrush(Color.FromRgb(35, 35, 35));
-            WindowState = WindowState.Minimized;
-        }
-
         // CloseButton 交互事件
 
         private void CloseButton_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

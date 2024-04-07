@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using FLiNG_Trainer.core.sqlitep;
+using FLiNG_Trainer.core.sqlite;
 using FLiNG_Trainer.models;
 using FLiNG_Trainer.views;
 using Newtonsoft.Json;
@@ -64,10 +64,9 @@ public partial class GameListPageViewModel : ObservableObject
         _ = LoadDataAsync();
     }
 
-    private void OpenDetailDialog(string url)
+    private void OpenDetailDialog(string gameId)
     {
-        TrainerUrl = url;
-        FluentWindow window = new DetailDialog() { _url = url };
+        FluentWindow window = new DetailDialog(gameId);
         window.ShowDialog();
     }
 
@@ -77,11 +76,7 @@ public partial class GameListPageViewModel : ObservableObject
         try
         {
             await Task.Run(() => {
-                SQLiteDataAccess dataAccess = new SQLiteDataAccess();
-                dataAccess.OpenConnection();
-                string query = "SELECT * FROM game_list";
-                int pageSize = 20;
-                table = dataAccess.GetPagedData(query, PageIndex, pageSize);
+                table = new GameListExecute().ExecuteGameListPage(PageIndex);
                 foreach (DataRow row in table.Rows)
                 {
                     GameListPageModel data = new GameListPageModel();
@@ -94,9 +89,7 @@ public partial class GameListPageViewModel : ObservableObject
                     {
                         Models.Add(data);
                     });
-
                 }
-                dataAccess.CloseConnection();
             });
         }catch (TaskCanceledException) { }
     }

@@ -1,4 +1,5 @@
 ﻿using FLiNG_Trainer.core;
+using FLiNG_Trainer.models;
 using FLiNG_Trainer.viewModels;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace FLiNG_Trainer.views
 {
     public partial class DetailDialog : FluentWindow
     {
-        public string _url { get; set; }
+        private string _gameId { get; set; }
 
-        public DetailDialog()
+        public DetailDialog(string gameId)
         {
+            _gameId = gameId;
             InitializeComponent();
-            this.DataContext = new DetailDialogViewModel(_url);
+            this.DataContext = new DetailDialogViewModel(gameId);
+            
         }
         // CloseButton 交互事件
 

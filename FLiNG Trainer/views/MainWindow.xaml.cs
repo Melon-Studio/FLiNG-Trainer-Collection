@@ -1,5 +1,4 @@
-﻿using FLiNG_Trainer.core.sqlitep;
-using FLiNG_Trainer.viewModels;
+﻿using FLiNG_Trainer.viewModels;
 using System.Data;
 using System.Windows;
 using System.Windows.Media;

@@ -39,7 +39,7 @@
                             CornerRadius="8"
                             Panel.ZIndex="1">
                             <Border.InputBindings>
-                                <MouseBinding Command="{Binding Path=DataContext.OpenDetailDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding TrainerUrl}" MouseAction="LeftClick" />
+                                <MouseBinding Command="{Binding Path=DataContext.OpenDetailDialogCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding GameCoverId}" MouseAction="LeftClick" />
                             </Border.InputBindings>
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" SpreadMethod="Pad">

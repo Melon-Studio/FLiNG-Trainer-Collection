@@ -68,7 +68,9 @@
     </ApplicationDefinition>
     <Compile Include="core\AngleSharpDomUtility.cs" />
     <Compile Include="core\downloader\DownloaderConfig.cs" />
-    <Compile Include="core\sqlite\SQLiteDataAccess.cs" />
+    <Compile Include="core\sqlite\GameListExecute.cs" />
+    <Compile Include="core\sqlite\SQLiteHelper.cs" />
+    <Compile Include="models\DetailDialogModel.cs" />
     <Compile Include="models\GameListPageModel.cs" />
     <Compile Include="models\MyListPageModel.cs" />
     <Compile Include="style\EmptyButtonControl.xaml.cs">
